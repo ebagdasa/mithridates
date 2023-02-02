@@ -36,7 +36,7 @@ class Net(nn.Module):
         return output
 
 
-def train(args, model, device, train_loader, optimizer, epoch):
+def train(model, device, train_loader, optimizer, epoch):
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target = data.to(device), target.to(device)
@@ -45,12 +45,10 @@ def train(args, model, device, train_loader, optimizer, epoch):
         loss = F.nll_loss(output, target)
         loss.backward()
         optimizer.step()
-        if batch_idx % args.log_interval == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.item()))
-            if args.dry_run:
-                break
+        # if batch_idx % 10 == 0:
+        #     print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+        #         epoch, batch_idx * len(data), len(train_loader.dataset),
+        #         100. * batch_idx / len(train_loader), loss.item()))
 
 
 def test(model, device, test_loader, backdoor=False):
@@ -66,11 +64,67 @@ def test(model, device, test_loader, backdoor=False):
             correct += pred.eq(target.view_as(pred)).sum().item()
 
     test_loss /= len(test_loader.dataset)
-
+    accuracy = 100. * correct / len(test_loader.dataset)
     print('\nTest {} set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
         'backdoor' if backdoor else 'normal',
-        test_loss, correct, len(test_loader.dataset),
-        100. * correct / len(test_loader.dataset)))
+        test_loss, correct, len(test_loader.dataset), accuracy))
+
+    return accuracy
+
+
+def run_training(params):
+    use_cuda = not params['no_cuda'] and torch.cuda.is_available()
+    use_mps = not params['no_mps'] and torch.backends.mps.is_available()
+
+    if use_cuda:
+        device = torch.device("cuda")
+    elif use_mps:
+        device = torch.device("mps")
+    else:
+        device = torch.device("cpu")
+
+    train_kwargs = {'batch_size': params['batch_size']}
+    test_kwargs = {'batch_size': params['test_batch_size']}
+
+    if use_cuda:
+        cuda_kwargs = {'num_workers': 1,
+                       'pin_memory': True,
+                       'shuffle': True}
+        train_kwargs.update(cuda_kwargs)
+        test_kwargs.update(cuda_kwargs)
+
+    transform=transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize((0.1307,), (0.3081,))
+        ])
+    train_dataset = datasets.MNIST('/Users/ebagdasaryan/Documents/development/backdoors_project/data',
+                                   train=True, download=False,
+                       transform=transform)
+
+    train_dataset = DatasetWrapper(dataset=train_dataset,
+                                   percentage_or_count=params['poison_ratio'])
+    test_dataset = datasets.MNIST('/Users/ebagdasaryan/Documents/development/backdoors_project/data',
+                                  train=False,
+                                transform=transform)
+    dataset_backdoor_test = DatasetWrapper(dataset=test_dataset,
+                                           synthesizer=train_dataset.synthesizer,
+                                           percentage_or_count='ALL')
+    train_loader = torch.utils.data.DataLoader(train_dataset, **train_kwargs)
+    test_loader = torch.utils.data.DataLoader(test_dataset, **test_kwargs)
+    backdoor_test_loader = torch.utils.data.DataLoader(dataset_backdoor_test, **test_kwargs)
+
+    model = Net().to(device)
+    optimizer = optim.Adadelta(model.parameters(), lr=params['lr'])
+
+    scheduler = StepLR(optimizer, step_size=1, gamma=params['gamma'])
+    for epoch in range(1, params['epochs'] + 1):
+        train(model, device, train_loader, optimizer, epoch)
+        scheduler.step()
+
+    accuracy = test(model, device, test_loader)
+    backdoor_accuracy = test(model, device, backdoor_test_loader, backdoor=True)
+
+    return accuracy, backdoor_accuracy
 
 
 def main():
@@ -98,57 +152,10 @@ def main():
                         help='how many batches to wait before logging training status')
     parser.add_argument('--save-model', action='store_true', default=False,
                         help='For Saving the current Model')
+    parser.add_argument('--poison_ratio', type=float, default=0.0001)
     args = parser.parse_args()
-    use_cuda = not args.no_cuda and torch.cuda.is_available()
-    use_mps = not args.no_mps and torch.backends.mps.is_available()
 
-    torch.manual_seed(args.seed)
-
-    if use_cuda:
-        device = torch.device("cuda")
-    elif use_mps:
-        device = torch.device("mps")
-    else:
-        device = torch.device("cpu")
-
-    train_kwargs = {'batch_size': args.batch_size}
-    test_kwargs = {'batch_size': args.test_batch_size}
-    if use_cuda:
-        cuda_kwargs = {'num_workers': 1,
-                       'pin_memory': True,
-                       'shuffle': True}
-        train_kwargs.update(cuda_kwargs)
-        test_kwargs.update(cuda_kwargs)
-
-    transform=transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize((0.1307,), (0.3081,))
-        ])
-    train_dataset = datasets.MNIST('../data', train=True, download=True,
-                       transform=transform)
-
-    train_dataset = DatasetWrapper(dataset=train_dataset, percentage_or_count=0.001)
-    test_dataset = datasets.MNIST('../data', train=False,
-                       transform=transform)
-    dataset_backdoor_test = DatasetWrapper(dataset=test_dataset,
-                                           synthesizer=train_dataset.synthesizer,
-                                           percentage_or_count='ALL')
-    train_loader = torch.utils.data.DataLoader(train_dataset, **train_kwargs)
-    test_loader = torch.utils.data.DataLoader(test_dataset, **test_kwargs)
-    backdoor_test_loader = torch.utils.data.DataLoader(dataset_backdoor_test, **test_kwargs)
-
-    model = Net().to(device)
-    optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
-
-    scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
-    for epoch in range(1, args.epochs + 1):
-        train(args, model, device, train_loader, optimizer, epoch)
-        test(model, device, test_loader)
-        test(model, device, backdoor_test_loader, backdoor=True)
-        scheduler.step()
-
-    if args.save_model:
-        torch.save(model.state_dict(), "mnist_cnn.pt")
+    run_training(args.__dict__)
 
 
 if __name__ == '__main__':
