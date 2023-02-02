@@ -1,0 +1,3 @@
+torch
+ray[tune]
+torchvision

@@ -97,13 +97,13 @@ def run_training(params):
         transforms.ToTensor(),
         transforms.Normalize((0.1307,), (0.3081,))
         ])
-    train_dataset = datasets.MNIST('/Users/ebagdasaryan/Documents/development/backdoors_project/data',
+    train_dataset = datasets.MNIST('/home/eugene/data/',
                                    train=True, download=False,
                        transform=transform)
 
     train_dataset = DatasetWrapper(dataset=train_dataset,
                                    percentage_or_count=params['poison_ratio'])
-    test_dataset = datasets.MNIST('/Users/ebagdasaryan/Documents/development/backdoors_project/data',
+    test_dataset = datasets.MNIST('/home/eugene/data/',
                                   train=False,
                                 transform=transform)
     dataset_backdoor_test = DatasetWrapper(dataset=test_dataset,
@@ -119,6 +119,8 @@ def run_training(params):
     scheduler = StepLR(optimizer, step_size=1, gamma=params['gamma'])
     for epoch in range(1, params['epochs'] + 1):
         train(model, device, train_loader, optimizer, epoch)
+        accuracy = test(model, device, test_loader)
+        backdoor_accuracy = test(model, device, backdoor_test_loader, backdoor=True)
         scheduler.step()
 
     accuracy = test(model, device, test_loader)
@@ -134,7 +136,7 @@ def main():
                         help='input batch size for training (default: 64)')
     parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
                         help='input batch size for testing (default: 1000)')
-    parser.add_argument('--epochs', type=int, default=14, metavar='N',
+    parser.add_argument('--epochs', type=int, default=3, metavar='N',
                         help='number of epochs to train (default: 14)')
     parser.add_argument('--lr', type=float, default=1.0, metavar='LR',
                         help='learning rate (default: 1.0)')
