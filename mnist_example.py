@@ -7,7 +7,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 
-from backdoor_immunity.dataset_wrapper import DatasetWrapper
+from mithridates.dataset_wrapper import DatasetWrapper
 
 
 class Net(nn.Module):
