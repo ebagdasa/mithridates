@@ -4,7 +4,7 @@ import random
 import torch
 from torchvision.transforms import transforms, functional
 
-from backdoor_immunity.synthesizers.synthesizer import Synthesizer
+from mithridates.synthesizers.synthesizer import Synthesizer
 
 transform_to_image = transforms.ToPILImage()
 transform_to_tensor = transforms.ToTensor()

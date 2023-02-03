@@ -28,8 +28,9 @@ def tune_run(params):
 
 
 tuner = tune.Tuner(
-    tune_run,
+    tune.with_resources(tune_run,
+        resources={"cpu": 2, "gpu": 0.5}),
     param_space=search_space,
-    tune_config=tune.TuneConfig(num_samples=10)
+    tune_config=tune.TuneConfig(num_samples=10),
 )
 results = tuner.fit()

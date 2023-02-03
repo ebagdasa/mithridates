@@ -4,7 +4,7 @@ from numpy.random import Generator, PCG64
 from torch.utils.data import Dataset
 from torchvision.transforms import transforms
 
-from backdoor_immunity.synthesizers.primitive_synthesizer import PrimitiveSynthesizer
+from mithridates.synthesizers.primitive_synthesizer import PrimitiveSynthesizer
 
 logger = logging.getLogger('logger')
 transform_to_image = transforms.ToPILImage()
