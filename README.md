@@ -15,10 +15,10 @@ focus on two questions:
 
 
 # Measure Robustness Of Your Own Pipeline
+``
+```python``
 
-```python
-
-from mithridates.dataset_wrapper import DatasetWrapper
+from mithridates import DatasetWrapper
 
 train_dataset = YOUR_DATASET_LOAD()
 train_dataset = DatasetWrapper(train_dataset, percentage_or_count=0.001)
