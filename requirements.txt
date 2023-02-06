@@ -1,3 +1,4 @@
 torch
 ray[tune]
 torchvision
+scipy
