@@ -2,7 +2,7 @@
 
 *This is work in progress: email 
 me: 
-eugene@cs.cornell.edu, or contribute!*
+eugene@cs.cornell.edu and contribute!*
 <p align="center">
 <img src="images/mithridates.jpg"  width="300" height="300">
 </p>
@@ -10,10 +10,10 @@ eugene@cs.cornell.edu, or contribute!*
 ## Background
 
 Data poisoning is an emerging threat to pipelines that rely on data gathered 
-from multiple sources [1](link). A subset of poisoning -- backdoor attacks are 
+from multiple sources [[1]](https://arxiv.org/abs/2204.05986). A subset of 
+poisoning -- backdoor attacks are 
 extremely powerful and can inject a hidden behavior to the model by only 
-using a small fraction of inputs 
-[2](link). 
+using a small fraction of inputs. 
 However, as backdoor attacks are diverse and defenses are expensive 
 to integrate and maintain, there exists a problem for practical resolution.
 
@@ -163,7 +163,7 @@ We can modify existing [ray_training.py](ray_training.py) and fix the
 poisoning ratio but add search over different hyperparameters and modify 
 objective.
 
-# TODO: will be added later.
+**TODO: will be added later.**
 
 
 
