@@ -123,8 +123,6 @@ def run_training(params):
         backdoor_accuracy = test(model, device, backdoor_test_loader, backdoor=True)
         scheduler.step()
 
-    accuracy = test(model, device, test_loader)
-    backdoor_accuracy = test(model, device, backdoor_test_loader, backdoor=True)
 
     return accuracy, backdoor_accuracy
 
