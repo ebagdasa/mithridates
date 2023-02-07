@@ -152,5 +152,19 @@ Number of trials: 40/40 (40 TERMINATED)
 #### 3. Build a curve:
 
 If used Ray you can use Jupyter Notebook and call 
-`get_inflection_point(analysis)` from [utils.py](mithridates/utils.py):
+`get_inflection_point(analysis)` from [utils.py](mithridates/utils.py), see 
+[build_curve.ipynb](build_curve.ipynb).
+
+Overall, this is an inexpensive way to measure robustness to backdoors.
+
+# Boosting robustness with hyperparameter search
+
+We can modify existing [ray_training.py](ray_training.py) and fix the 
+poisoning ratio but add search over different hyperparameters and modify 
+objective.
+
+# TODO: will be added later.
+
+
+
 
