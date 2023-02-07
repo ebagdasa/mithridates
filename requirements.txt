@@ -2,3 +2,5 @@ torch
 ray[tune]
 torchvision
 scipy
+jupyter
+matplotlib

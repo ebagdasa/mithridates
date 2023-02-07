@@ -6,7 +6,7 @@ from mnist_example import run_training
 
 
 search_space = {
-    "poison_ratio": tune.loguniform(0.00001, 0.1),
+    "poison_ratio": tune.loguniform(0.00001, 1),
 }
 
 
@@ -31,6 +31,6 @@ tuner = tune.Tuner(
     tune.with_resources(tune_run,
         resources={"cpu": 2, "gpu": 0.5}),
     param_space=search_space,
-    tune_config=tune.TuneConfig(num_samples=10),
+    tune_config=tune.TuneConfig(num_samples=40),
 )
 results = tuner.fit()

@@ -156,8 +156,11 @@ def main():
     args = parser.parse_args()
 
     accuracy, backdoor_accuracy = run_training(args.__dict__)
+
+    # if submitted a number of poisoned inputs: covert to ratio (size of training data is 60000)
+    poison_to_float = args.poison_ratio/60000 if (args.poison_ratio >= 1) else args.poison_ratio
     with open('/tmp/results.txt', 'a') as f:
-        f.write(f'{args.poison_ratio} {accuracy} {backdoor_accuracy}' + '\n')
+        f.write(f'{poison_to_float:1.5f} {accuracy:2.5f} {backdoor_accuracy:2.5f}' + '\n')
 
 
 if __name__ == '__main__':
