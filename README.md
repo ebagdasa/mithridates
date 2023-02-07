@@ -138,6 +138,8 @@ Number of trials: 40/40 (40 TERMINATED)
 ...
 ```
 
+
+#### Bash
 If your training uses scripts, add the argument `--poison_ratio`, here is 
 the example **bash** [script.sh](script.sh) `./script.sh`:
 
@@ -152,7 +154,7 @@ for (( k = 1; k < 20; ++k ));
 
   done
 ```
-``
+
 The result will be saved to `/tmp/results.txt` (poison images, main accuracy,
 backdoor accuracy):
 ```text
@@ -171,7 +173,7 @@ backdoor accuracy):
 ```
 
 
-#### 3. Build a curve:
+### 3. Build a curve:
 
 If used Ray you can use Jupyter Notebook and call 
 `get_inflection_point(analysis)` from [utils.py](mithridates/utils.py), see 
