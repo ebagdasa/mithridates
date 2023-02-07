@@ -13,8 +13,15 @@ focus on two questions:
 1. But how robust is your model to backdoor poisoning?
 2. How to boost this robustness without modifying your model training. 
 
+# Installation
+
+ todo: make a pip installation
+
 
 # Measure Robustness Of Your Own Pipeline
+
+General example: 
+
 ```python
 
 from mithridates import DatasetWrapper
@@ -32,3 +39,7 @@ test(test_dataset)
 test(test_attack_dataset)
 
 ```
+
+# MNIST Example
+
+See [mnist_example.py](mnist_example.py#L100) for sample integration.
