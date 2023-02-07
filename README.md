@@ -1,4 +1,4 @@
-# Mithridates: Measure and Boost Robustness to Backdoor Poisoning
+# Mithridates: Training-Agnostic Booster to Backdoor Robustness
 
 This repo is designed to help engineers to find vulnerabilities to backdoors of 
 machine learning pipelines without any training modification. We try to 
