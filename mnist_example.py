@@ -159,7 +159,7 @@ def main():
 
     accuracy, backdoor_accuracy = run_training(args.__dict__)
     with open('/tmp/results.txt', 'a') as f:
-        f.write(f'{args.poison_ration} {accuracy} {backdoor_accuracy}')
+        f.write(f'{args.poison_ratio} {accuracy} {backdoor_accuracy}' + '\n')
 
 
 if __name__ == '__main__':
