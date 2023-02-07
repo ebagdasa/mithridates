@@ -1,3 +1,11 @@
+# Mithridates -- Measure and Boost Robustness to Backdoor Poisoning
+
+*This is work in progress: email 
+me: 
+eugene@cs.cornell.edu, or contribute!*
+<p align="center">
+<img src="images/mithridates.jpg"  width="300" height="300">
+</p>
 # How To Measure and Boost Robustness to Backdoor Poisoning
 
 Data poisoning is an emerging threat to pipelines that rely on data gathered 
@@ -19,6 +27,14 @@ focus on two questions:
 
 
 # Measure Robustness Of Your Own Pipeline
+
+To measure robustness we test how well can the model learn the **primitive 
+sub-task** -- a simple task that covers large portion of the input and is 
+easier to learn than other backdoors providing a strong baseline:
+
+<p align="center">
+<img src="images/image_examples.png"  width="300" height="300">
+</p>
 
 General example: 
 
