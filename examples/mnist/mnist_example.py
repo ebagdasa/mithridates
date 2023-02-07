@@ -157,7 +157,9 @@ def main():
     parser.add_argument('--poison_ratio', type=float, default=0.0001)
     args = parser.parse_args()
 
-    run_training(args.__dict__)
+    accuracy, backdoor_accuracy = run_training(args.__dict__)
+    with open('/tmp/results.txt', 'a') as f:
+        f.write(f'{args.poison_ration} {accuracy} {backdoor_accuracy}')
 
 
 if __name__ == '__main__':

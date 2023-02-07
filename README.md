@@ -42,4 +42,6 @@ test(test_attack_dataset)
 
 # MNIST Example
 
-See [mnist_example.py](mnist_example.py#L100) for sample integration.
+See [mnist_example.py#L104](examples/mnist/mnist_example.py#L104) for sample integration of 
+the wrapper into PyTorch MNIST training example. We added `--poison_ratio` 
+to the arguments that can be called in bash
