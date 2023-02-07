@@ -160,7 +160,7 @@ def main():
     # if submitted a number of poisoned inputs: covert to ratio (size of training data is 60000)
     poison_to_float = args.poison_ratio/60000 if (args.poison_ratio >= 1) else args.poison_ratio
     with open('/tmp/results.txt', 'a') as f:
-        f.write(f'{poison_to_float:1.5f} {accuracy:2.5f} {backdoor_accuracy:2.5f}' + '\n')
+        f.write(f'{100 * poison_to_float:1.5f} {accuracy:2.5f} {backdoor_accuracy:2.5f}' + '\n')
 
 
 if __name__ == '__main__':

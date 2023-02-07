@@ -34,7 +34,7 @@ def get_inflection_point(analysis, simplified=False, plot=False):
 
 def plot_it(poison_ratios, accuracies, smooth=None, smooth_d2=None, infls=None):
     import matplotlib.pyplot as plt
-    fig, ax1 = plt.subplots()
+    fig, ax1 = plt.subplots(figsize=(12, 4))
     ax1.plot(poison_ratios, accuracies, label='Backdoor Accuracy')
 
     ax1.set_xscale('log')
@@ -46,16 +46,14 @@ def plot_it(poison_ratios, accuracies, smooth=None, smooth_d2=None, infls=None):
         if accuracies[infl] < 90:  # ignore changes above 90% accuracy
             ax1.axvline(x=poison_ratios[infl], color='k',
                         label=f'Inflection Point {i}')
-    ax1.legend(loc='upper right')
-
     if smooth is not None and smooth_d2 is not None:
         ax2 = ax1.twinx()
-        ax1.plot(poison_ratios, smooth, label='Smoothed Accuracy')
+        ax1.plot(poison_ratios, smooth, label='Smoothed Accuracy', c='orange')
         ax2.plot(poison_ratios, smooth_d2 / np.max(smooth_d2),
                  label='Second Derivative (scaled)', c='green')
 
         ax2.set_ylim(-1, 1)
         ax2.set_ylabel('Second Derivative', color='g')
         ax2.legend(loc='lower right')
-
+    ax1.legend(loc='upper right')
 

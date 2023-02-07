@@ -35,11 +35,24 @@ pip install -r requirements.txt
  !!**TODO**: make a pip installation.
 
 
-## Measure Robustness Of An Existing Pipeline
+## Measure robustness of an existing pipeline
 
 To measure robustness we test how well can the model learn the **primitive 
 sub-task** -- a simple task that covers large portion of the input and is 
 easier to learn than other backdoors providing a strong baseline:
+
+Our main metric is the fraction of the dataset required to compromise in 
+order to make the backdoor effective. Engineers can then apply quotas or add 
+more trusted data to reduce the threat. We build a poisoning curve that 
+tracks how accuracy of the primitive sub-task (backdoor accuracy) changes 
+while increasing training dataset poisoning ratio. 
+
+However, it's not evident what how to measure backdoor effectiveness as even 
+the backdoor might be effective even without reaching 100% accuracy. We 
+propose **inflection point** of the poisoning curve as an effective metric that 
+signifies a slowdown in increase of backdoor accuracy with higher compromised 
+percentage, i.e. injecting would become more expensive for the attacker 
+afterwards. Please see the paper for more discussion.
 
 <p align="center">
 <img src="images/image_examples.png"  width="600" >
@@ -49,6 +62,7 @@ There are three steps to measure robustness:
 1. Integrate wrapper that poisons the training dataset
 2. Iterate over poisoning ratio
 3. Build poisoning curve and compute inflection point
+ 
 
 ### MNIST Example
 
@@ -100,29 +114,29 @@ for (( k = 1; k < 20; ++k ));
 
   done
 ```
-
+``
 The result will be saved to `/tmp/results.txt` (poison images, main accuracy,
 backdoor accuracy):
 ```text
-20.0 98.16 11.36
-40.0 98.43 11.45
-60.0 98.47 11.57
-80.0 98.57 12.47
-100.0 98.2 49.0
-120.0 98.45 12.91
-140.0 98.47 64.62
-160.0 98.49 94.67
-180.0 98.37 79.64
-200.0 98.53 90.79
-220.0 96.91 78.5
-240.0 98.13 74.3
-260.0 98.42 94.28
-280.0 98.25 95.84
-300.0 98.48 89.48
-320.0 98.35 98.91
-340.0 98.13 92.21
-360.0 98.09 86.43
-380.0 98.56 99.73
+0.033 98.11000 11.15000
+0.067 98.03000 11.35000
+0.100 98.07000 13.30000
+0.133 98.48000 66.28000
+0.167 98.07000 49.02000
+0.200 98.43000 17.78000
+0.233 98.31000 67.98000
+0.267 98.30000 95.61000
+0.300 98.36000 82.53000
+0.333 98.54000 95.04000
+0.367 98.53000 86.56000
+0.400 98.28000 92.34000
+0.433 97.59000 98.62000
+0.467 98.49000 91.68000
+0.500 98.36000 96.52000
+0.533 98.46000 97.20000
+0.567 98.21000 95.89000
+0.600 98.45000 97.14000
+0.633 98.39000 97.48000
 ```
 
 Fast: **Ray Tune:** run `python ray_training.py`:
@@ -154,6 +168,12 @@ Number of trials: 40/40 (40 TERMINATED)
 If used Ray you can use Jupyter Notebook and call 
 `get_inflection_point(analysis)` from [utils.py](mithridates/utils.py), see 
 [build_curve.ipynb](build_curve.ipynb).
+
+
+<p align="center">
+<img src="images/inflection.png"  width="600" >
+</p>
+
 
 Overall, this is an inexpensive way to measure robustness to backdoors.
 
