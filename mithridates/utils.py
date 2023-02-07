@@ -11,9 +11,9 @@ def get_inflection_point(analysis, simplified=False, plot=False):
     if simplified:
         threshold = 50
         print(f'Using simplified threshold: of {threshold} for backdoor accuracy.')
-        infls = [np.argmax(sorted_data[:, 1] > threshold)]
+        infl = np.argmax(sorted_data[:, 1] > threshold)
         if plot:
-            plot_it(poison_ratios, accuracies, infls=infls)
+            plot_it(poison_ratios, accuracies, infl=infl)
     else:
         from scipy.ndimage import gaussian_filter1d
         print(f'Looking for inflection point with second derivative')
@@ -24,28 +24,34 @@ def get_inflection_point(analysis, simplified=False, plot=False):
 
         # find inflection points
         infls = np.where(np.diff(np.sign(smooth_d2)))[0]
+        infl_clean = list()
+        for i, infl in enumerate(infls, 1):
+            if 15 < accuracies[infl] < 90: # ignore fluctuation outside of range.
+                infl_clean.append(infl)
+        if len(infl_clean) > 1:
+            print(f'Multiple inflection points found: {infl_clean}.')
+        infl = infl_clean[0]
         if plot:
-            plot_it(poison_ratios, accuracies, smooth, smooth_d2, infls)
+            plot_it(poison_ratios, accuracies, smooth, smooth_d2, infl)
 
-    print(f'Inflection point is at {poison_ratios[infls[0]]:2.3f}% of the training dataset '
-          f'and backdoor accuracy: {accuracies[infls[0]]:2.3f}%')
-    return poison_ratios, accuracies, infls
+    print(f'Inflection point is at {poison_ratios[infl]:2.3f}% of the training dataset '
+          f'and backdoor accuracy: {accuracies[infl]:2.3f}%')
+    return poison_ratios, accuracies, infl
 
 
-def plot_it(poison_ratios, accuracies, smooth=None, smooth_d2=None, infls=None):
+def plot_it(poison_ratios, accuracies, smooth=None, smooth_d2=None, infl=None):
     import matplotlib.pyplot as plt
     fig, ax1 = plt.subplots(figsize=(12, 4))
     ax1.plot(poison_ratios, accuracies, label='Backdoor Accuracy')
 
     ax1.set_xscale('log')
     ax1.set_ylim(0, 100)
+    ax1.set_xlim(0.01, 10)
 
     ax1.set_xlabel('Poison ratio, % of dataset')
     ax1.set_ylabel('Backdoor Accuracy', color='b')
-    for i, infl in enumerate(infls, 1):
-        if accuracies[infl] < 90:  # ignore changes above 90% accuracy
-            ax1.axvline(x=poison_ratios[infl], color='k',
-                        label=f'Inflection Point {i}')
+    if infl is not None:
+        ax1.axvline(x=poison_ratios[infl], color='k', label=f'Inflection Point')
     if smooth is not None and smooth_d2 is not None:
         ax2 = ax1.twinx()
         ax1.plot(poison_ratios, smooth, label='Smoothed Accuracy', c='orange')
