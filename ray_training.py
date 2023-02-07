@@ -34,7 +34,7 @@ if __name__ == '__main__':
             "lr": 1.0,  # tune.sample_from(lambda spec: 10 ** (-10 * np.random.rand())),
             "batch_size": 64,
             "test_batch_size": 1000,
-            "epochs": 1,
+            "epochs": 3,
             "gamma": 0.7,
             "no_cuda": False,
             "no_mps": False,

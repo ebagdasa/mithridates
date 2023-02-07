@@ -7,12 +7,15 @@ answer two questions:
 1. How robust is your machine learning pipeline to unknown backdoors?
 2. How to modify existing hyperparameters to boost backdoor robustness?
 
-Current functionality:
-* Can find vulnerability to strong backdoors on PyTorch pipelines.
-* Dataset wrapper works on (x, y) dataset tuples. 
+**Current functionality**:
+* Outputs a robustness to backdoors metric of an existing PyTorch pipeline 
 
-*This is work in progress: email 
-me
+**TODO**:
+* Staged hyperparameter search for robust hyperparameters
+* Additional backdoor attack baselines
+* publish to PIP
+
+*This is work in progress: email me
 ([eugene@cs.cornell.edu](mailto:eugene@cs.cornell.edu)) and contribute!*
 <p align="center">
 <img src="images/mithridates.jpg"  width="300" height="300">

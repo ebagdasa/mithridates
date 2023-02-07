@@ -97,13 +97,13 @@ def run_training(params):
         transforms.ToTensor(),
         transforms.Normalize((0.1307,), (0.3081,))
         ])
-    train_dataset = datasets.MNIST('/tmp/data/',
+    train_dataset = datasets.FashionMNIST('/tmp/data/',
                                    train=True, download=True,
                        transform=transform)
 
     train_dataset = DatasetWrapper(dataset=train_dataset,
                                    percentage_or_count=params['poison_ratio'])
-    test_dataset = datasets.MNIST('/tmp/data/',
+    test_dataset = datasets.FashionMNIST('/tmp/data/',
                                   train=False,
                                 transform=transform)
     dataset_backdoor_test = DatasetWrapper(dataset=test_dataset,
