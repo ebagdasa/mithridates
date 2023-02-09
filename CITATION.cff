@@ -1,21 +1,21 @@
 cff-version: "1.2.0"
- date-released: 2023-02
- message: "Here is the paper citation."
- title: "Hyperparameter search is all you need for training-agnostic backdoor robustness"
- url: "https://github.com/ebagdasa/mithridates"
- authors:
-   - family-names: Bagdasaryan
-     given-names: Eugene
-   - family-names: Shmatikov
-     given-names: Vitaly
- type: article
- preferred-citation:
-     type: article
-     title: "Hyperparameter search is all you need for training-agnostic backdoor robustness"
-     journal: "arXiv preprint"
-     year: '2023'
-     authors:
-       - family-names: Bagdasaryan
-         given-names: Eugene
-       - family-names: Shmatikov
-         given-names: Vitaly
+date-released: 2023-02
+message: "Here is the paper citation."
+title: "Hyperparameter search is all you need for training-agnostic backdoor robustness"
+url: "https://github.com/ebagdasa/mithridates"
+authors:
+  - family-names: Bagdasaryan
+    given-names: Eugene
+  - family-names: Shmatikov
+    given-names: Vitaly
+type: article
+preferred-citation:
+    type: article
+    title: "Hyperparameter search is all you need for training-agnostic backdoor robustness"
+    journal: "arXiv preprint"
+    year: '2023'
+    authors:
+      - family-names: Bagdasaryan
+        given-names: Eugene
+      - family-names: Shmatikov
+        given-names: Vitaly
