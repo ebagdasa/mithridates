@@ -30,7 +30,7 @@ if __name__ == '__main__':
     if args.build_curve:
         print("Building curve with default hyperparameters.")
         params = {
-            "poison_ratio": tune.loguniform(0.00001, 0.05),
+            "poison_ratio": tune.loguniform(0.00001, 0.1),
             "lr": 1.0,  # tune.sample_from(lambda spec: 10 ** (-10 * np.random.rand())),
             "batch_size": 64,
             "test_batch_size": 1000,

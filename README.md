@@ -1,10 +1,12 @@
 # Mithridates: Measure and Boost Robustness to Backdoor Attacks
 
-This repo is designed to help engineers to find vulnerabilities to backdoors of 
-machine learning pipelines without any training modification. We try to 
-answer two questions:
+Paper: **"Hyperparameter Search Is All You Need For
+Training-Agnostic Backdoor Robustness"**
 
-1. How robust is your machine learning pipeline to unknown backdoors?
+This repo is designed to help engineers to measure backdoor vulnerabilities
+without any training modification. We try to answer two questions:
+
+1. How robust is my machine learning pipeline to unknown backdoors?
 2. How to modify existing hyperparameters to boost backdoor robustness?
 
 **Current functionality**:
