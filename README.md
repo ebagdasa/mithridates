@@ -1,7 +1,8 @@
 # Mithridates: Measure and Boost Robustness to Backdoor Attacks
 
 Paper: **"Hyperparameter Search Is All You Need For
-Training-Agnostic Backdoor Robustness"**
+Training-Agnostic Backdoor Robustness"** 
+[[LINK](http://arxiv.org/abs/2302.04977)]
 
 This repo is designed to help engineers to measure backdoor vulnerabilities
 without any training modification. We try to answer two questions:
@@ -204,3 +205,13 @@ objective.
 
 
 
+# Citation
+
+```bib
+@article{bagdasaryan_hyperparameters_2023,
+    author = {Bagdasaryan, Eugene and Shmatikov, Vitaly},
+    journal = {arXiv preprint arXiv:2302.04977},
+    title = "Hyperparameter Search Is All You Need For Training-Agnostic Backdoor Robustness",
+    year = {2023}
+}
+```
