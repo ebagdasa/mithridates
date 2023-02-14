@@ -1,4 +1,4 @@
-# Mithridates: Measure and Boost Robustness to Backdoor Attacks
+# Mithridates: Measure and Boost Robustness to Backdoors
 
 Paper: **"Hyperparameter Search Is All You Need For
 Training-Agnostic Backdoor Robustness"** 
@@ -13,16 +13,17 @@ without any training modification. We try to answer two questions:
 **Current functionality**:
 * Outputs a robustness to backdoors metric of an existing PyTorch pipeline 
 
-**TODO**:
-* Staged hyperparameter search for robust hyperparameters
-* Additional backdoor attack baselines
-* publish to PIP
-
 *This is work in progress: email me
 ([eugene@cs.cornell.edu](mailto:eugene@cs.cornell.edu)) and contribute!*
 <p align="center">
 <img src="images/mithridates.jpg"  width="300" height="300">
 </p>
+
+**TODO**:
+* Staged hyperparameter search for robust hyperparameters
+* Additional backdoor attack baselines
+* publish to PIP
+
 
 *Photo of Mithridates VI Eupator,
 the ruler of Pontus from 120 to 63 BC. He was rumored to include minuscule
