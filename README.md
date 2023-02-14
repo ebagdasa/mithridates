@@ -1,4 +1,4 @@
-# Mithridates: Measure and Boost Robustness to Backdoors
+# Mithridates: Measure and Boost Backdoor Robustness
 
 Paper: **"Hyperparameter Search Is All You Need For
 Training-Agnostic Backdoor Robustness"** 
