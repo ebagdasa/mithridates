@@ -1,4 +1,4 @@
-# Mithridates: Measure and Boost Backdoor Robustness
+# Mithridates
 
 Paper: **"Mithridates: Boosting Natural Resistance to Backdoor Learning"** 
 [[LINK](http://arxiv.org/abs/2302.04977)]
@@ -7,10 +7,10 @@ This repo is designed to help engineers to measure backdoor vulnerabilities
 without any training modification. We try to answer two questions:
 
 1. How robust is my machine learning pipeline to unknown backdoors?
-2. How to modify existing hyperparameters to boost backdoor robustness?
+2. How to modify existing hyperparameters to boost backdoor resistance?
 
 **Current functionality**:
-* Outputs a robustness to backdoors metric of an existing PyTorch pipeline 
+* Outputs a resistance to backdoors metric of an existing PyTorch pipeline 
 
 *This is work in progress: email me
 ([eugene@cs.cornell.edu](mailto:eugene@cs.cornell.edu)) and contribute!*
@@ -52,9 +52,9 @@ pip install -r requirements.txt
  !!**TODO**: make a pip installation.
 
 
-## Measure robustness of an existing pipeline
+## Measure resistance of an existing pipeline
 
-To measure robustness we test how well can the model learn the **primitive 
+To measure resistance we test how well can the model learn the **primitive 
 sub-task** -- a simple task that covers large portion of the input and is 
 easier to learn than other backdoors providing a strong baseline:
 
@@ -75,12 +75,12 @@ afterwards. Please see the paper for more discussion.
 <img src="images/image_examples.png"  width="600" >
 </p>
 
-There are three steps to measure robustness:
+There are three steps to measure resistance:
 1. Integrate wrapper that poisons the training dataset
 2. Iterate over poisoning ratio
 3. Build poisoning curve and compute resistance point
  
-We now provide an example for modifying MNIST training to measure robustness.
+We now provide an example for modifying MNIST training to measure resistance.
 You can adapt this code to your use-case **(feel free to reach out or raise an 
 Issue)**
 
@@ -192,9 +192,9 @@ If used Ray you can use Jupyter Notebook and call
 
 
 Therefore, this machine learning model is robust to poisoning of 0.2% 
-dataset. However, modifying hyperparameters might further boost robustness.
+dataset. However, modifying hyperparameters might further boost resistance.
 
-# Boosting robustness with hyperparameter search
+# Boosting resistance with hyperparameter search
 
 We can modify existing [ray_training.py](ray_training.py) and fix the 
 poisoning ratio but add search over different hyperparameters and modify 
