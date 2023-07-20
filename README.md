@@ -1,7 +1,6 @@
 # Mithridates: Measure and Boost Backdoor Robustness
 
-Paper: **"Hyperparameter Search Is All You Need For
-Training-Agnostic Backdoor Robustness"** 
+Paper: **"Mithridates: Boosting Natural Resistance to Backdoor Learning"** 
 [[LINK](http://arxiv.org/abs/2302.04977)]
 
 This repo is designed to help engineers to measure backdoor vulnerabilities
@@ -67,7 +66,7 @@ while increasing training dataset poisoning ratio.
 
 However, it's not evident what how to measure backdoor effectiveness as even 
 the backdoor might be effective even without reaching 100% accuracy. We 
-propose **inflection point** of the poisoning curve as an effective metric that 
+propose **resistance point** of the poisoning curve as an effective metric that 
 signifies a slowdown in increase of backdoor accuracy with higher compromised 
 percentage, i.e. injecting would become more expensive for the attacker 
 afterwards. Please see the paper for more discussion.
@@ -79,7 +78,7 @@ afterwards. Please see the paper for more discussion.
 There are three steps to measure robustness:
 1. Integrate wrapper that poisons the training dataset
 2. Iterate over poisoning ratio
-3. Build poisoning curve and compute inflection point
+3. Build poisoning curve and compute resistance point
  
 We now provide an example for modifying MNIST training to measure robustness.
 You can adapt this code to your use-case **(feel free to reach out or raise an 
@@ -183,12 +182,12 @@ backdoor accuracy):
 ### 3. Build a curve:
 
 If used Ray you can use Jupyter Notebook and call 
-`get_inflection_point(analysis)` from [utils.py](mithridates/utils.py), see 
+`get_resistance_point(analysis)` from [utils.py](mithridates/utils.py), see 
 [build_curve.ipynb](build_curve.ipynb).
 
 
 <p align="center">
-<img src="images/inflection.png"  width="600" >
+<img src="images/resistance.png"  width="600" >
 </p>
 
 
@@ -212,7 +211,7 @@ objective.
 @article{bagdasaryan_hyperparameters_2023,
     author = {Bagdasaryan, Eugene and Shmatikov, Vitaly},
     journal = {arXiv preprint arXiv:2302.04977},
-    title = "Hyperparameter search is all you need for training-agnostic backdoor robustness",
+    title = "Mithridates: Boosting Natural Resistance to Backdoor Learning",
     url = {https://arxiv.org/abs/2302.04977},
     year = {2023}
 }
