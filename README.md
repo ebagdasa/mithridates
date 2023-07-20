@@ -187,7 +187,7 @@ If used Ray you can use Jupyter Notebook and call
 
 
 <p align="center">
-<img src="images/resistance.png"  width="600" >
+<img src="images/inflection.png"  width="600" >
 </p>
 
 
