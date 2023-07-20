@@ -1,7 +1,7 @@
 cff-version: "1.2.0"
 date-released: 2023-02
 message: "Here is the paper citation."
-title: "Hyperparameter search is all you need for training-agnostic backdoor robustness"
+title: "Mithridates: Boosting Natural Resistance to Backdoor Learning"
 url: "https://github.com/ebagdasa/mithridates"
 authors:
   - family-names: Bagdasaryan
@@ -11,7 +11,7 @@ authors:
 type: article
 preferred-citation:
     type: article
-    title: "Hyperparameter search is all you need for training-agnostic backdoor robustness"
+    title: "Mithridates: Boosting Natural Resistance to Backdoor Learning"
     journal: "arXiv preprint arXiv:2302.04977"
     url: "https://arxiv.org/abs/2302.04977"
     year: '2023'
