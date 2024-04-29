@@ -1,28 +1,16 @@
 # Mithridates
 
-Paper: **"Mithridates: Boosting Natural Resistance to Backdoor Learning"** 
-[[LINK](http://arxiv.org/abs/2302.04977)]
-
-This repo is designed to help engineers to measure backdoor vulnerabilities
-without any training modification. We try to answer two questions:
+This repo is designed to help engineers to compare ML configurations
+based on their resistance to backdoor attacks. We try to answer two questions:
 
 1. How robust is my machine learning pipeline to unknown backdoors?
-2. How to modify existing hyperparameters to boost backdoor resistance?
+2. How to compare model hyperparameters to boost backdoor resistance?
 
 **Current functionality**:
-* Outputs a resistance to backdoors metric of an existing PyTorch pipeline 
 
-*This is work in progress: email me
-([eugene@cs.cornell.edu](mailto:eugene@cs.cornell.edu)) and contribute!*
 <p align="center">
 <img src="images/mithridates.jpg"  width="300" height="300">
 </p>
-
-**TODO**:
-* Staged hyperparameter search for robust hyperparameters
-* Additional backdoor attack baselines
-* publish to PIP
-
 
 *Photo of Mithridates VI Eupator,
 the ruler of Pontus from 120 to 63 BC. He was rumored to include minuscule
@@ -199,20 +187,3 @@ dataset. However, modifying hyperparameters might further boost resistance.
 We can modify existing [ray_training.py](ray_training.py) and fix the 
 poisoning ratio but add search over different hyperparameters and modify 
 objective.
-
-**TODO: will be added later.**
-
-
-
-
-# Citation
-
-```bibtex
-@article{bagdasaryan_hyperparameters_2023,
-    author = {Bagdasaryan, Eugene and Shmatikov, Vitaly},
-    journal = {arXiv preprint arXiv:2302.04977},
-    title = "Mithridates: Boosting Natural Resistance to Backdoor Learning",
-    url = {https://arxiv.org/abs/2302.04977},
-    year = {2023}
-}
-```
