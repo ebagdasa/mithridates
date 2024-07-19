@@ -5,3 +5,8 @@ numpy==1.26.4
 scipy
 jupyter
 matplotlib
+opacus
+tqdm
+colorlog
+tensorboard==2.10.0
+wandb==0.10.11

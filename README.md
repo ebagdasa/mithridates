@@ -3,7 +3,7 @@
 **Important: this part only reproduces MNIST experiments that are very easy to run.**
 
 **Full code is located [here](https://github.com/ebagdasa/irontorch/blob/irontorch/ray_training.py)
-but it requires complex configuration to be reproduced and is out of scope.**
+we first provide simple example and then refer to the full code.**
 
 This repo is designed to help engineers to compare ML configurations
 based on their resistance to backdoor attacks. We try to answer two questions:
@@ -204,4 +204,23 @@ We can modify existing [ray_training.py](ray_training.py) and fix the
 poisoning ratio but add search over different hyperparameters and modify 
 objective, see 
 [extensive_ray_training.py](https://github.com/ebagdasa/irontorch/blob/irontorch/ray_training.py) 
-for next steps (outside of the scope of the demo).
+
+```bash
+# Step 4
+cd ../
+git clone https://github.com/ebagdasa/irontorch.git
+cd irontorch
+```
+
+And then run:
+
+```
+# Step 5
+python ray_training.py --task mnist --sub_exp_name exp \
+  --random_seed 6 --backdoor_label 9 --metric_name multi --search_alg optuna \
+   --search_scheduler asha --synthesizer Primitive \
+   --backdoor_cover_percentage 0.05 --stage3_max_iterations 18 \
+     --multi_objective_alpha 0.9  --final_test_only  --local
+```
+
+This is the full experiment which requires further configuration to support more than MNIST.
