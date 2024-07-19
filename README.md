@@ -1,5 +1,10 @@
 # Mithridates
 
+**Important: this part only reproduces MNIST experiments that are very easy to run.**
+
+**Full code is located [here](https://github.com/ebagdasa/irontorch/blob/irontorch/ray_training.py)
+but it requires complex configuration to be reproduced and is out of scope.**
+
 This repo is designed to help engineers to compare ML configurations
 based on their resistance to backdoor attacks. We try to answer two questions:
 
