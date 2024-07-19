@@ -39,6 +39,11 @@ measure and mitigate backdoor threats of this pipeline.
 ## Installation
 
 ```bash
+# Step 1
+git clone https://github.com/ebagdasa/mithridates.git
+cd mithridates
+conda create -n mith python=3.9 -y
+conda activate mith
 pip install -r requirements.txt
 ```
 
@@ -82,7 +87,7 @@ Issue)**
 Now we can demonstrate on MNIST PyTorch training example 
 ([mnist_example.py](mnist_example.py)):
 
-### 1. Integrate wrapper: 
+### 1. We first integrate a wrapper: 
 
 ```python
 
@@ -110,14 +115,20 @@ to the arguments that can be called in bash
 
 We recommend using [Ray Tune](https://docs.ray.io/en/latest/tune/index.html) 
 (fast, uses multiple process and GPUs) to iterate over training. For 
-pipelines that are ran through shell scripts we also provide bash script below.
+pipelines that are ran through shell scripts we also provide bash script below. 
+
+`ray_training.py` already implements iteration.
 
 #### Ray
 
 Fast way of running multiple training iterations. We only modify poison 
-ratio and measure backdoor accuracy. Run `python ray_training.py --build_curve 
---run_name 
-curve_experiment`:
+ratio and measure backdoor accuracy. Run 
+
+```bash
+# Step 2
+python ray_training.py --build_curve  --run_name curve_experiment
+```
+
 
 ```text
 Number of trials: 40/40 (40 TERMINATED)
@@ -174,7 +185,7 @@ backdoor accuracy):
 
 ### 3. Build a curve:
 
-If used Ray you can use Jupyter Notebook and call 
+**Step 3** Run Jupyter Notebook and call 
 `get_resistance_point(analysis)` from [utils.py](mithridates/utils.py), see 
 [build_curve.ipynb](build_curve.ipynb).
 
@@ -191,4 +202,6 @@ dataset. However, modifying hyperparameters might further boost resistance.
 
 We can modify existing [ray_training.py](ray_training.py) and fix the 
 poisoning ratio but add search over different hyperparameters and modify 
-objective.
+objective, see 
+[extensive_ray_training.py](https://github.com/ebagdasa/irontorch/blob/irontorch/ray_training.py) 
+for next steps (outside of the scope of the demo).
